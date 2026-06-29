@@ -15,7 +15,7 @@
   h1,
   h2,
   h3 {
-    @apply font-display tracking-tightest;
+    @apply font-display tracking-tight;
   }
 
   ::selection {

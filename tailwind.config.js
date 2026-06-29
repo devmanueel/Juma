@@ -21,9 +21,6 @@ export default {
         sans: ["Plus Jakarta Sans", "system-ui", "sans-serif"],
         display: ["Space Grotesk", "Plus Jakarta Sans", "sans-serif"],
       },
-      letterSpacing: {
-        tightest: "-0.04em",
-      },
       backgroundImage: {
         "juma-gradient":
           "linear-gradient(135deg, #f97316 0%, #ef4444 45%, #6366f1 100%)",
