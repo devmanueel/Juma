@@ -8,24 +8,24 @@ const stats = [
   { icon: Heart, value: "Jujuy", label: "raíces y orgullo" },
 ];
 
-// Paisajes reales de Jujuy (fotos propias en /public/img).
+// Paisajes reales de Jujuy (fotografía de la comunidad Pexels, licencia libre).
 const cityImages = [
   {
-    src: "/img/jujuy-purmamarca.jpg",
-    alt: "Cerro de los Siete Colores, Purmamarca",
+    src: "/img/jujuy-pueblo.jpg",
+    alt: "Calle de tierra y casa de adobe naranja entre los cerros de Purmamarca",
     place: "Purmamarca",
     className: "row-span-2",
   },
   {
-    src: "/img/jujuy-humahuaca.jpg",
-    alt: "Monumento a la Independencia y cardones, Humahuaca",
-    place: "Humahuaca",
+    src: "/img/jujuy-siete-colores.jpg",
+    alt: "Cerro de los Siete Colores bajo un cielo con nubes",
+    place: "Cerro de los Siete Colores",
     className: "",
   },
   {
-    src: "/img/jujuy-valle.jpg",
-    alt: "Valle verde de las Termas de Reyes, Jujuy",
-    place: "Termas de Reyes",
+    src: "/img/jujuy-mercado.jpg",
+    alt: "Feria artesanal con tejidos andinos al pie de los cerros",
+    place: "Feria artesanal",
     className: "",
   },
 ];

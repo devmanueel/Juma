@@ -98,6 +98,20 @@ export default function Footer() {
             <span className="text-gradient font-semibold">{site.owner}</span>
           </p>
         </div>
+
+        <p className="mt-4 text-center sm:text-left text-xs text-slate-600">
+          Fotografía y video de Jujuy vía{" "}
+          <a
+            href="https://www.pexels.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-slate-400 transition-colors"
+          >
+            Pexels
+          </a>
+          : Pedro Slinger, Héctor Pérez, Emiliano Rodríguez, Maggy Chang y
+          Devani Photo.
+        </p>
       </div>
     </footer>
   );

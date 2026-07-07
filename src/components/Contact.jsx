@@ -66,9 +66,19 @@ export default function Contact() {
 
   return (
     <section id="contacto" className="relative py-24 px-5 overflow-hidden">
+      {/* Panorama de la Quebrada como telón de fondo, apenas insinuado */}
+      <div aria-hidden="true" className="absolute inset-0">
+        <img
+          src="/img/jujuy-panorama.jpg"
+          alt=""
+          loading="lazy"
+          className="h-full w-full object-cover opacity-[0.08]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-juma-dark via-transparent to-juma-dark" />
+      </div>
       <div className="absolute top-0 right-1/4 h-80 w-80 rounded-full bg-juma-orange/10 blur-[120px]" />
 
-      <div className="mx-auto max-w-6xl">
+      <div className="relative mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

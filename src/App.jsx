@@ -5,6 +5,7 @@ import TechMarquee from "./components/TechMarquee";
 import Services from "./components/Services";
 import Process from "./components/Process";
 import About from "./components/About";
+import JujuyShowcase from "./components/JujuyShowcase";
 import Projects from "./components/Projects";
 import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
@@ -21,6 +22,7 @@ export default function App() {
         <Services />
         <Process />
         <About />
+        <JujuyShowcase />
         <Projects />
         <Testimonials />
         <Contact />
