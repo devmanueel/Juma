@@ -1,23 +1,67 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MessageCircle, Mail, Send, MapPin, Phone, CheckCircle2 } from "lucide-react";
+import {
+  MessageCircle,
+  Mail,
+  Send,
+  MapPin,
+  Phone,
+  CheckCircle2,
+  Loader2,
+  AlertCircle,
+} from "lucide-react";
 import { site, whatsappLink, mailtoLink } from "../siteConfig";
 
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [sent, setSent] = useState(false);
+  // status: idle | loading | success | error
+  const [status, setStatus] = useState("idle");
 
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  // El formulario arma un mensaje y lo abre por WhatsApp (sin backend).
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const sendByWhatsapp = () => {
     const text = `Hola Juma! 👋%0A%0ANombre: ${form.name}%0AEmail: ${form.email}%0A%0A${form.message}`;
     window.open(`https://wa.me/${site.phone}?text=${text}`, "_blank");
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
+    setStatus("success");
+    setTimeout(() => setStatus("idle"), 4000);
     setForm({ name: "", email: "", message: "" });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Si no hay Formspree configurado, usamos WhatsApp como fallback.
+    if (!site.formspreeId) {
+      sendByWhatsapp();
+      return;
+    }
+
+    setStatus("loading");
+    try {
+      const res = await fetch(
+        `https://formspree.io/f/${site.formspreeId}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            name: form.name,
+            email: form.email,
+            message: form.message,
+          }),
+        }
+      );
+
+      if (res.ok) {
+        setStatus("success");
+        setForm({ name: "", email: "", message: "" });
+        setTimeout(() => setStatus("idle"), 5000);
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -36,11 +80,11 @@ export default function Contact() {
             Contacto
           </span>
           <h2 className="mt-3 font-display text-3xl sm:text-4xl font-bold text-white">
-            ¿Listo para crear algo{" "}
-            <span className="text-gradient">increíble</span>?
+            Pedí tu presupuesto{" "}
+            <span className="text-gradient">sin costo</span>
           </h2>
           <p className="mt-4 text-slate-400">
-            Escribinos por el medio que prefieras. Respondemos rápido. 🚀
+            Contanos tu idea y te respondemos en menos de 24 hs. 🚀
           </p>
         </motion.div>
 
@@ -144,10 +188,19 @@ export default function Contact() {
                 className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-juma-orange focus:ring-1 focus:ring-juma-orange transition resize-none"
               />
             </div>
-            <button type="submit" className="btn-primary w-full">
-              {sent ? (
+
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              className="btn-primary w-full disabled:opacity-70 disabled:cursor-not-allowed"
+            >
+              {status === "loading" ? (
                 <>
-                  <CheckCircle2 size={18} /> ¡Abriendo WhatsApp!
+                  <Loader2 size={18} className="animate-spin" /> Enviando...
+                </>
+              ) : status === "success" ? (
+                <>
+                  <CheckCircle2 size={18} /> ¡Mensaje enviado!
                 </>
               ) : (
                 <>
@@ -155,8 +208,24 @@ export default function Contact() {
                 </>
               )}
             </button>
+
+            {/* Mensajes de estado */}
+            {status === "success" && (
+              <p className="flex items-center gap-2 text-sm text-green-400">
+                <CheckCircle2 size={16} /> ¡Gracias! Te vamos a responder muy
+                pronto.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="flex items-center gap-2 text-sm text-red-400">
+                <AlertCircle size={16} /> Hubo un problema. Escribinos por
+                WhatsApp y lo resolvemos.
+              </p>
+            )}
             <p className="text-xs text-center text-slate-500">
-              Al enviar, se abrirá WhatsApp con tu mensaje listo para mandar.
+              {site.formspreeId
+                ? "Tu mensaje nos llega directo al correo."
+                : "Al enviar, se abrirá WhatsApp con tu mensaje listo para mandar."}
             </p>
           </motion.form>
         </div>

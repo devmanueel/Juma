@@ -19,6 +19,9 @@ pnpm-debug.log*
 # Claude Code (config local)
 .claude/
 
+# Documentos personales (nunca publicar en el repo)
+Imagenes/
+
 # Editor
 .vscode/*
 !.vscode/extensions.json

@@ -79,6 +79,7 @@ export default function Projects() {
             <img
               src={featured.img}
               alt={featured.title}
+              loading="lazy"
               className="absolute inset-0 h-full w-full object-cover object-left-top transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent to-juma-panel/80 lg:to-juma-panel" />

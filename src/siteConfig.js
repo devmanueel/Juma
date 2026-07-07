@@ -14,6 +14,11 @@ export const site = {
   whatsappMessage:
     "¡Hola Juma! 👋 Vi tu landing y quiero más información sobre sus servicios.",
 
+  // Formspree: pegá acá el ID de tu formulario (https://formspree.io → New Form).
+  // Te queda algo como "xanwabcd" (la parte final de la URL del endpoint).
+  // Si lo dejás vacío, el formulario sigue funcionando enviando por WhatsApp.
+  formspreeId: "",
+
   // Redes sociales
   social: {
     facebook:
@@ -25,8 +30,10 @@ export const site = {
   nav: [
     { label: "Inicio", href: "#inicio" },
     { label: "Servicios", href: "#servicios" },
+    { label: "Proceso", href: "#proceso" },
     { label: "Nosotros", href: "#nosotros" },
     { label: "Proyectos", href: "#proyectos" },
+    { label: "Testimonios", href: "#testimonios" },
     { label: "Contacto", href: "#contacto" },
   ],
 };

@@ -1,7 +1,22 @@
+import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, MapPin } from "lucide-react";
-import Scene3D from "./Scene3D";
+import { ArrowRight, Sparkles, MapPin, Loader2 } from "lucide-react";
 import { whatsappLink } from "../siteConfig";
+
+// Los modelos 3D (Three.js) se cargan aparte para no frenar la primera pintura.
+const Scene3D = lazy(() => import("./Scene3D"));
+const NetworkBackground = lazy(() => import("./NetworkBackground"));
+
+function Scene3DFallback() {
+  return (
+    <div className="flex h-full w-full items-center justify-center">
+      <div className="relative">
+        <div className="h-40 w-40 rounded-full bg-juma-gradient opacity-20 blur-2xl animate-pulse" />
+        <Loader2 className="absolute inset-0 m-auto text-juma-orange animate-spin" size={36} />
+      </div>
+    </div>
+  );
+}
 
 const container = {
   hidden: {},
@@ -22,6 +37,16 @@ export default function Hero() {
       <div className="absolute inset-0 bg-juma-radial" />
       <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-juma-orange/20 blur-[120px]" />
       <div className="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-juma-indigo/20 blur-[120px]" />
+
+      {/* Red de partículas conectadas (solo desktop, estilo Network Hero) */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 hidden lg:block pointer-events-none opacity-60"
+      >
+        <Suspense fallback={null}>
+          <NetworkBackground />
+        </Suspense>
+      </div>
 
       <div className="relative mx-auto max-w-7xl w-full px-5 grid lg:grid-cols-2 gap-10 items-center">
         {/* Texto */}
@@ -77,10 +102,13 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.3 }}
           className="relative h-[360px] sm:h-[460px] lg:h-[560px]"
         >
-          <div className="absolute inset-0 rounded-[2rem]">
-            <Scene3D />
+          {/* En móvil el canvas no captura el touch: así el scroll nunca se traba */}
+          <div className="absolute inset-0 rounded-[2rem] pointer-events-none lg:pointer-events-auto">
+            <Suspense fallback={<Scene3DFallback />}>
+              <Scene3D />
+            </Suspense>
           </div>
-          <p className="absolute bottom-2 inset-x-0 text-center text-xs text-slate-500">
+          <p className="absolute bottom-2 inset-x-0 hidden lg:block text-center text-xs text-slate-500">
             ✋ Arrastrá para girar el modelo 3D
           </p>
         </motion.div>

@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Code2, Smartphone, Palette, Rocket, Search, Cog } from "lucide-react";
+import TiltCard from "./TiltCard";
+import AuroraBackground from "./AuroraBackground";
 
 const services = [
   {
@@ -36,8 +38,9 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="servicios" className="relative py-24 px-5">
-      <div className="mx-auto max-w-7xl">
+    <section id="servicios" className="relative py-24 px-5 overflow-hidden">
+      <AuroraBackground />
+      <div className="relative mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -66,17 +69,18 @@ export default function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
-              className="group glass rounded-2xl p-7 hover:border-juma-orange/40 hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="h-14 w-14 rounded-xl bg-juma-gradient flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform">
-                <s.icon className="text-white" size={26} />
-              </div>
-              <h3 className="mt-5 text-xl font-semibold text-white">
-                {s.title}
-              </h3>
-              <p className="mt-2 text-slate-400 text-sm leading-relaxed">
-                {s.desc}
-              </p>
+              <TiltCard className="group glass rounded-2xl p-7 h-full hover:border-juma-orange/40 transition-colors duration-300">
+                <div className="h-14 w-14 rounded-xl bg-juma-gradient flex items-center justify-center shadow-glow group-hover:scale-110 transition-transform">
+                  <s.icon className="text-white" size={26} />
+                </div>
+                <h3 className="mt-5 text-xl font-semibold text-white">
+                  {s.title}
+                </h3>
+                <p className="mt-2 text-slate-400 text-sm leading-relaxed">
+                  {s.desc}
+                </p>
+              </TiltCard>
             </motion.div>
           ))}
         </div>

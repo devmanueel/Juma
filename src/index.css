@@ -21,6 +21,18 @@
   ::selection {
     @apply bg-juma-orange/40 text-white;
   }
+
+  /* Accesibilidad: menos movimiento si el sistema lo pide */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
 }
 
 @layer components {
@@ -51,6 +63,42 @@
     @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3
       font-semibold text-slate-100 glass
       transition-colors duration-300 hover:bg-white/10;
+  }
+
+  /* Mancha de luz difusa para el fondo tipo aurora */
+  .aurora-blob {
+    @apply absolute rounded-full;
+    width: clamp(18rem, 45vw, 40rem);
+    height: clamp(18rem, 45vw, 40rem);
+    filter: blur(90px);
+    animation: aurora-drift 18s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  /* Cinta infinita de tecnologías */
+  .marquee-track {
+    animation: marquee 28s linear infinite;
+  }
+}
+
+@keyframes aurora-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(6rem, -3rem, 0) scale(1.15);
+  }
+  100% {
+    transform: translate3d(-5rem, 4rem, 0) scale(0.95);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
